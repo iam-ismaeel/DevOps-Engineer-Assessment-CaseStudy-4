@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - 00-auth-service-namespace.yaml
+  - 01-auth-service-rbac.yaml
+  - 02-auth-service-network-policies.yaml
+  - 03-auth-service.yaml

@@ -1,0 +1,36 @@
+# configmap for auth-srvice configurations
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configs
+  namespace: api-gateway
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  AUTH_SERVICE_URL:  "http://auth-service.auth-service.svc.cluster.local:8082"
+  UPLOAD_SERVICE_URL: "http://upload-service.upload-service.svc.cluster.local:8083"  #if services are on the same ns: "http://upload-service:8083"
+    #---
+# Persistent Volume for uploads
+#ApiVersion: v1
+#kind: PersistentVolume
+#metadata:
+#name: uploads-pv
+#Spec:
+#capacity:
+#  storage: 5Gi
+#accessModes:
+#  - ReadWriteOnce
+#hostPath:
+#  path: /tmp/uploads
+#---
+# Persistent Volume Claim for uploads
+#ApiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+# name: uploads-pvc
+#spec:
+# accessModes:
+#   - ReadWriteOnce
+# resources:
+#   requests:
+#     storage: 5Gi
