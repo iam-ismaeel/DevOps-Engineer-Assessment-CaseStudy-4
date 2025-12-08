@@ -72,3 +72,10 @@ Ensure that the images are scanned for vulnerabilities using **Trivy** before de
 
 - Secrets such as Api keys, JWT_SECRETS ought to be managed by a third party secret manager such as Harshicorp Vault, AWS Secret Manager etc, to prevent attackers from accessing them in the clusters.
 - A Kubernetes Operator used in achieving this is **ESO (External Secret Operator)** with the aid of a custom resource definition `externalsecret` and `secretstore` YAML manifests to connect to the secret store.
+
+## **The folders in the repository above indicate as follows**
+- .github folder is the ci/cd piplines for the automatic deployment of the images to the ECR registry.
+- Kustomized-GitOps-Manifests contains the Kustomized kubernetes manifests  for the cluster.
+- Infrastructure-live-modules contains the terraform modules for reusability in infra deployment.
+- Infrastructure-state-live-modueles contains the terraform state lock  module with dynamodb.
+- services contains the applcation codes with the dependencies and dockerfiles.
