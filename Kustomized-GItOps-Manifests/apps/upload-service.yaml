@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/iam-ismaeel/ApplicationSet-Merge-Gen-GitOps-Manifests.git
+    repoURL: https://github.com/iam-ismaeel/DevOps-Engineer-Assessment-CaseStudy-4.git
     targetRevision: main
     path: upload-service/base   # Path to the microservice manifests
     kustomize:
