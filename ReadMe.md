@@ -73,6 +73,37 @@ Ensure that the images are scanned for vulnerabilities using **Trivy** before de
 - Secrets such as Api keys, JWT_SECRETS ought to be managed by a third party secret manager such as Harshicorp Vault, AWS Secret Manager etc, to prevent attackers from accessing them in the clusters.
 - A Kubernetes Operator used in achieving this is **ESO (External Secret Operator)** with the aid of a custom resource definition `externalsecret` and `secretstore` YAML manifests to connect to the secret store.
 
+## **Stage 8: Testing Application accessibility**
+- The Application runing in the Eks cluster is now tested via the terminal to ensure, accessibility.
+- Before switching traffic, application must be running simultaneously:
+- Old environment: On-prem VMs
+- New environment: Cloud Kubernetes cluster
+
+This ensures traffic switch gradually without outage.
+## **Stage 9: Traffic Cut-Over**
+To move traffic safely,the DNS or routing must be controlled via either of these two methods.
+## **DNS CUT-OVER**
+- The domain currently points to on-prem load balancer.
+- Deploy the app on Kubernetes and expose it via AWS EKS LB / Ingress.
+- Lower DNS TTL (e.g., 60 seconds) — so changes propagate fast.
+- Change the DNS record (A/CNAME) to point to the Network load balancer.
+
+## **Reverse Proxy Forwarding **
+
+- Keep the on-prem load balancer as the entry point temporarily.
+- Configure it to proxy/forward requests to the cloud Kubernetes LB.
+- Slowly increase traffic forwarded to K8s (e.g., 10% → 50% → 100%).
+
+This allows:
+✔ Gradual migration
+✔ Easy rollback
+✔ No DNS dependency
+
+- Once all traffic has successfully moved to Kubernetes:
+- Remove on-prem as a backend
+- Decommission VMs
+Migration complete.
+
 ## **The folders in the repository above indicate as follows**
 - .github folder is the ci/cd piplines for the automatic deployment of the images to the ECR registry.
 - Kustomized-GitOps-Manifests contains the Kustomized kubernetes manifests  for the cluster.
